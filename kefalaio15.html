@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<!-- Εφαρμογή 15: Διανυσματικά γραφικά
+ Αρχείο p15.html
+ Σημείωση: Όταν γράφτηκε αυτό το παράδειγμα η φόρτωση εξωτερικού
+ αρχείου SVG δεν λειτούργησε σωστά σε κάθε φυλλομετρητή.
+ Επίσης ορισμένοι φυλλομετρητές χρειάζονται την ενσωμάτωση του
+ κώδικα σεναρίου κάποιας βιβλιοθήκης, όπως η MathJax για να
+ αποδώσουν σωστά τους μαθηματικούς τύπους της MathML.
+-->
+<html lang="el-GR">
+ <head>
+ <title>Επίλυση τριγώνου</title>
+ <meta charset="utf-8">
+ <meta name="author" content="Ο συγγραφέας">
+ <meta name="description" content="Διανυσματικά γραφικά">
+ <script>
+ //πηγή: http://goo.gl/taWddl
+ var is_chrome = navigator.userAgent.indexOf('Chrome') > -1;
+ var is_explorer = navigator.userAgent.indexOf('MSIE') > -1;
+ var is_firefox = navigator.userAgent.indexOf('Firefox') > -1;
+ var is_safari = navigator.userAgent.indexOf("Safari") > -1;
+ var is_opera = navigator.userAgent.toLowerCase().indexOf("op") > -1;
+ if ((is_chrome) && (is_safari)) {
+ is_safari = false;
+ }
+ if ((is_chrome) && (is_opera)) {
+ is_chrome = false;
+ }
+ if (!is_firefox) {
+ //πηγή: http://goo.gl/EkDaKb
+ var imported = document.createElement('script');
+ imported.src = 'https://cdn.mathjax.org/mathjax/latest'+
+ '/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+ document.head.appendChild(imported);
+ }
+ </script>
+ <style>
+ body {
+ background-color: lightgreen;
+ text-shadow: 2px 2px 8px white;
+ }
+ h1 {
+ color: blue;
+ font-size: 2em;
+ font-family: Georgia, serif;
+ text-shadow: 1px 1px 10px yellow;
+ }
+ div.Σχήμα {
+ float:right; clear:right;
+ margin:10px;
+ width:20%;
+ text-align:center;
+ }
+ div.Θεώρημα {
+ display:block;
+ border: 2px solid black;
+ background-color:powderblue;
+ padding:10px;
+ text-align:center;
+ width:50%;
+ }
+ math {
+ display:block;
+ text-align:center;
+ line-height: 1.4em;
+ font-size:1.1em;
+ text-shadow: 3px 3px 10px yellow;
+ }
+ </style>
+ </head>
+ <body>
+ <div class="Σχήμα">
+ <svg id="Σχήμα1" height="220" width="220">
+ <circle cx="110" cy="110" r="100" stroke="red" stroke-width="2"
+ fill="none" />
+ <circle cx="110" cy="110" r="2" stroke="black" stroke-width="2"
+ fill="black" />
+ <g stroke="black" stroke-width="2">
+ <line id="ΒΔ" x1="20" y1="154" x2="200" y2="67" />
+ <line id="ΓΔ" x1="200" y1="154" x2="200" y2="67" />
+ <line id="ΒΓ" x1="20" y1="154" x2="200" y2="154"/>
+ <line id="ΑΓ" x1="72" y1="18" x2="200" y2="154" />
+ <line id="ΑΒ" x1="72" y1="18" x2="20" y2="154" />
+ <rect id="ΟρθήΓωνία" x="190" y="144" width="10" height="10"
+ fill="none" />
+ </g>
+ <text x="104" y="104" fill="black">Ο</text>
+ <text x="108" y="165" fill="black">α</text>
+ <text x="55" y="18" fill="black">Α</text>
+ <text x="4" y="154" fill="black">Β</text>
+ <text x="207" y="154" fill="black">Γ</text>
+ <text x="207" y="67" fill="black">Δ</text>
+ Δυστυχώς ο φυλλομετρητής σας δεν υποστηρίζει γραφικά SVG.
+ </svg>
+ <p>Σχήμα 1</p>
+ </div>
+ <div class="Σχήμα">
+ <svg id="Σχήμα2" height="220" width="220">
+ <use xlink:href="p15-sx2-3.svg#Σχήμα_2"></use>
+ Δυστυχώς ο φυλλομετρητής σας δεν υποστηρίζει γραφικά SVG.
+ </svg>
+ <p>Σχήμα 2</p>
+ </div>
+ <div class="Σχήμα">
+ <svg id="Σχήμα3" height="220" width="220">
+ <use xlink:href="p15-sx2-3.svg#Σχήμα_3"></use>
+ Δυστυχώς ο φυλλομετρητής σας δεν υποστηρίζει γραφικά SVG.
+ </svg>
+ <p>Σχήμα 3</p>
+ </div>
+ <p><em>Από το βιβλίο "ΑΛΓΕΒΡΑ" της Β' Γενικού Λυκείου...</em></p>
+ <h1>1.7 Επίλυση τριγώνου</h1>
+ <p>Το κλασικό πρόβλημα της Τριγωνομετρίας, από το οποίο πήρε και το 
+ όνομα της, είναι η <strong>επίλυση</strong> τριγώνου, δηλαδή ο 
+ υπολογισμός των άγνωστων κύριων στοιχείων ενός τριγώνου, όταν 
+ δίνονται επαρκή στοιχεία του.<p>
+ <p>Η επίλυση τριγώνου μπορεί να γίνει με τη βοήθεια των παρακάτω δυο 
+ βασικών θεωρημάτων, που είναι γνωστά το ένα ως <strong>νόμος των 
+ ημιτόνων</strong> και το άλλο ως <strong>νόμος των συνημίτονων
+ </strong>.</p>
+ <h2>Νόμος των ημίτονων</h2>
+ <div class="Θεώρημα"><em style="position:absolute; left:2%">ΘΕΩΡΗΜΑ</em>
+ Σε κάθε τρίγωνο ΑΒΓ ισχύει:
+ <math>
+ <mfrac> <mn><mi>α</mi></mn> <mi>ημΑ</mi> </mfrac>
+ <mo>=</mo>
+ <mfrac> <mn><mi>β</mi></mn> <mi>ημΒ</mi> </mfrac>
+ <mo>=</mo>
+ <mfrac> <mn><mi>γ</mi></mn> <mi>ημΓ</mi> </mfrac>
+ <mo>= 2R</mo> </math> 
+ όπου R, η ακτίνα του περιγεγραμμένου κύκλου του τριγώνου.
+ </div>
+ <h3>ΑΠΟΔΕΙΞΗ</h3>
+ <p>Έστω (0,R) ο περιγεγραμμένος κύκλος του τριγώνου ΑΒΓ. Αν φέρουμε τη 
+ διάμετρο ΒΔ και τη χορδή ΓΔ, τότε σχηματίζεται τρίγωνο ΓΒΔ που είναι
+ ορθογώνιο στο Γ. Επομένως έχουμε:</p>
+ <math> <mi> ημΔ </mi> <mo> = </mo>
+ <mfrac> <mn><mi> (ΒΓ) </mi></mn> <mi> (ΒΔ) </mi> </mfrac>
+ <mo>=</mo>
+ <mfrac> <mn><mi>α</mi></mn> <mi> 2R </mi> </mfrac>
+ <mo>, οπότε </mo>
+ <mfrac> <mn><mi> α </mi></mn> <mi> ημΔ </mi> </mfrac>
+ <mo> = </mo> <mi> 2R </mi> <mo> (1)</mo> </math>
+ <p>Είναι όμως Δ = Α (Σχ. 1) ή Δ + Α = 180<sup>o</sup> (Σχ. 2), οπότε 
+ ημΔ = ημΑ. Επομένως η (1) γράφεται</p>
+ <math> <mfrac> <mn><mi> α </mi></mn> <mi> ημΑ </mi> </mfrac>
+ <mo> = </mo> <mi> 2R </mi> </math>
+ <p>Αν Α = 90<sup>o</sup>, τότε έχουμε: ημΑ = 1 και α = 2R (Σχ. 3). 
+ Επομένως και στην περίπτωση αυτή ισχύει ισότητα
+ <math style="display:inline">
+ <mfrac> <mn><mi> α </mi></mn> <mi> ημΑ </mi> </mfrac>
+ <mo> = </mo> <mi> 2R </mi>
+ </math>
+ </p>
+ <p>Όμοια αποδεικνύεται ότι:
+ <math style="display:inline">
+ <mfrac> <mn><mi>β</mi></mn> <mi>ημΒ</mi> </mfrac>
+ <mo>=</mo> <mi>2R</mi> </math> και
+ <math style="display:inline">
+ <mfrac> <mn><mi>γ</mi></mn> <mi>ημΓ</mi>
+ </mfrac> <mo>=</mo> <mi> 2R </mi> </math>
+ </p>
+ <p>Επομένως: <math style="display:inline">
+ <mfrac><mn><mi>α</mi></mn><mi>ημΑ</mi></mfrac>
+ <mo> = </mo> <mfrac><mn><mi>β</mi></mn><mi>ημΒ</mi></mfrac>
+ <mo> = </mo> <mfrac><mn><mi>γ</mi></mn><mi>ημΓ</mi></mfrac>
+ <mo> = </mo> <mi> 2R </mi> </math> </p>
+ <hr> <p><span style="color:green">Σχόλιο.</span> Με το νόμο των ημίτονων 
+ μπορούμε εύκολα να επιλύσουμε ένα τρίγωνο, όταν δίνονται: </p>
+ <ol type="i">
+ <li>Μια πλευρά και δυο γωνίες του ή</li>
+ <li>Δυο πλευρές και μια από τις μη περιεχόμενες γωνίες του.</li>
+ </ol>
+ </body>
+</html>
